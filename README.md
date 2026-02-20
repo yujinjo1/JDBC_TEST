@@ -25,7 +25,8 @@ SELECT * FROM customer WHERE first_name = ?
 ```
 <br>
 
-### 시나리오 1: ClientPreparedStatement (`useServerPrepStmts=false`)
+### 시나리오 1: ClientPreparedStatement 
+`useServerPrepStmts=false`
 
 - 클라이언트에서 `?`에 값을 직접 치환하여 **완성된 SQL 문자열**을 매번 서버에 전송
 - 서버는 매번 SQL을 새로 파싱하며, Statement ID가 생성되지 않음
@@ -41,7 +42,8 @@ sequenceDiagram
     DB-->>App: 결과 반환
 ```
 
-### 시나리오 2: ServerPreparedStatement, 캐시 OFF (`useServerPrepStmts=true`, `cachePrepStmts=false`)
+### 시나리오 2: ServerPreparedStatement, 캐시 OFF 
+`useServerPrepStmts=true`, `cachePrepStmts=false`
 
 - 서버에 PREPARE 요청 → **DBMS가 Statement ID를 발급**하여 실행 계획을 관리
 - `close()` 호출 시 즉시 `DEALLOCATE PREPARE` → 서버에서 캐시 삭제
@@ -65,7 +67,8 @@ sequenceDiagram
     App->>DB: DEALLOCATE (ID: 2 삭제)
 ```
 
-### 시나리오 3: ServerPreparedStatement, 캐시 ON (`useServerPrepStmts=true`, `cachePrepStmts=true`)
+### 시나리오 3: ServerPreparedStatement, 캐시 ON 
+`useServerPrepStmts=true`, `cachePrepStmts=true`
 
 - 최초 1회만 PREPARE → DBMS가 **Statement ID를 발급**
 - `close()` 호출 시 DEALLOCATE하지 않고 **클라이언트 캐시에 보관**
