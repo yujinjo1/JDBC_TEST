@@ -1,0 +1,15 @@
+*.class
+*.jar
+*.war
+/bin/
+/out/
+/build/
+/target/
+/.idea/
+*.iml
+.settings/
+.classpath
+.project
+.DS_Store
+.metadata/
+**/target/
